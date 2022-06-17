@@ -13,7 +13,7 @@ export const HomeScreen = () => {
   const [indicators, setIndicators] = useState<IIndicators[]>( [] );
   const [indicatorsPrincipals, setIndicatorsPrincipals] = useState<IIndicators[]>([]);
   const [quantity, setQuantity] = useState<string>("1");
-  const [money, setMoney] = useState<any>({id: "dolar", item : "Dólar observado - $867.93"}) ;
+  const [money, setMoney] = useState<any>() ;
   const [options, setOptions] = useState<Array<Item>>([]) ;
   const [peso, setPeso] = useState<number>(0) ;
 
@@ -38,13 +38,10 @@ export const HomeScreen = () => {
   } ;
 
   const changeChileanPeso = ( code : string, _quantity: string = "" ) : void => {
-    if ( quantity == "" ) return ;
-
-    console.log("_quantity <>>>>>>>>", _quantity);
     
     const quantity_ : number = _quantity == "" ? parseInt( quantity ) : parseInt( _quantity )  ; 
     const value : number = getPriceByValue( code ) ;
-    setPeso( value * quantity_ ) ;
+    setPeso( (value * quantity_)) ;
   } ;
 
 
@@ -63,14 +60,12 @@ export const HomeScreen = () => {
 
   const actionSelectedMoneyComponent = ( quantity : number , selected : Item ) : void => {
     changeValues( quantity.toString() , selected) ;
-    changeChileanPeso(selected.id.toString()) ;
+    changeChileanPeso(selected.id.toString(), quantity.toString()) ;
   } ;
 
   const changeQuantity = ( textQuantity : string ) : void => {
     setQuantity( textQuantity);
-    console.log( "money" , money);
     changeChileanPeso(money.id.toString(), textQuantity) ;
-    
   } ;
   
   useEffect(() => {

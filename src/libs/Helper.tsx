@@ -9,7 +9,6 @@ export default class Helper {
         value : string 
         ) :  Array<Item> {
 
-            console.log("data :: ", data);
             
         const items : Array<Item> = data.map( ( row: {} ) => {
             
